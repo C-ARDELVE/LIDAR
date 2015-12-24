@@ -1,0 +1,264 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		C45738B21C289E100012FD9D /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = C45738B11C289E100012FD9D /* main.c */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		C45738AC1C289E100012FD9D /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		C45738AE1C289E100012FD9D /* Lidar_data */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Lidar_data; sourceTree = BUILT_PRODUCTS_DIR; };
+		C45738B11C289E100012FD9D /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
+		C45738BA1C28A2FA0012FD9D /* lidar_data */ = {isa = PBXFileReference; lastKnownFileType = file; name = lidar_data; path = Sample_data/lidar_data; sourceTree = "<group>"; };
+		C45738BB1C28A9CE0012FD9D /* lidar_data.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = lidar_data.h; sourceTree = "<group>"; };
+		C45738C01C28AABE0012FD9D /* xv11hacking_LIDAR_Sensor.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = xv11hacking_LIDAR_Sensor.pdf; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		C45738AB1C289E100012FD9D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		C45738A51C289E100012FD9D = {
+			isa = PBXGroup;
+			children = (
+				C45738BF1C28AABE0012FD9D /* Docs */,
+				C45738B81C28A14F0012FD9D /* Sample_data */,
+				C45738B01C289E100012FD9D /* Lidar_data */,
+				C45738AF1C289E100012FD9D /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		C45738AF1C289E100012FD9D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C45738AE1C289E100012FD9D /* Lidar_data */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C45738B01C289E100012FD9D /* Lidar_data */ = {
+			isa = PBXGroup;
+			children = (
+				C45738B11C289E100012FD9D /* main.c */,
+				C45738BB1C28A9CE0012FD9D /* lidar_data.h */,
+			);
+			path = Lidar_data;
+			sourceTree = "<group>";
+		};
+		C45738B81C28A14F0012FD9D /* Sample_data */ = {
+			isa = PBXGroup;
+			children = (
+				C45738BA1C28A2FA0012FD9D /* lidar_data */,
+			);
+			name = Sample_data;
+			sourceTree = "<group>";
+		};
+		C45738BF1C28AABE0012FD9D /* Docs */ = {
+			isa = PBXGroup;
+			children = (
+				C45738C01C28AABE0012FD9D /* xv11hacking_LIDAR_Sensor.pdf */,
+			);
+			path = Docs;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		C45738AD1C289E100012FD9D /* Lidar_data */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C45738B51C289E100012FD9D /* Build configuration list for PBXNativeTarget "Lidar_data" */;
+			buildPhases = (
+				C45738AA1C289E100012FD9D /* Sources */,
+				C45738AB1C289E100012FD9D /* Frameworks */,
+				C45738AC1C289E100012FD9D /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Lidar_data;
+			productName = Lidar_data;
+			productReference = C45738AE1C289E100012FD9D /* Lidar_data */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		C45738A61C289E100012FD9D /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0700;
+				ORGANIZATIONNAME = ardelve;
+				TargetAttributes = {
+					C45738AD1C289E100012FD9D = {
+						CreatedOnToolsVersion = 7.0;
+					};
+				};
+			};
+			buildConfigurationList = C45738A91C289E100012FD9D /* Build configuration list for PBXProject "Lidar_data" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = C45738A51C289E100012FD9D;
+			productRefGroup = C45738AF1C289E100012FD9D /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				C45738AD1C289E100012FD9D /* Lidar_data */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		C45738AA1C289E100012FD9D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C45738B21C289E100012FD9D /* main.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		C45738B31C289E100012FD9D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		C45738B41C289E100012FD9D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		C45738B61C289E100012FD9D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		C45738B71C289E100012FD9D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C45738A91C289E100012FD9D /* Build configuration list for PBXProject "Lidar_data" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C45738B31C289E100012FD9D /* Debug */,
+				C45738B41C289E100012FD9D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C45738B51C289E100012FD9D /* Build configuration list for PBXNativeTarget "Lidar_data" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C45738B61C289E100012FD9D /* Debug */,
+				C45738B71C289E100012FD9D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = C45738A61C289E100012FD9D /* Project object */;
+}
