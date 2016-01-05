@@ -24,10 +24,34 @@ static struct option long_options[] =
     {0, 0, 0, 0}
 };
 
+uint16_t
+chk_sum(uint8_t *data, size_t length)
+{
+    uint32_t sum;
+    uint16_t data16;
+    int i;
+    
+    sum = 0;
+    if (length & 1) {
+        length -= 1;
+        sum = (*data << 8);
+        data++;
+    }
+    
+    for (i = 0; i < (length / 2); i++) {
+        data16 = (data[2 * i] + (data[(2 * i) + 1] << 8));
+        sum = (sum << 1) + data16;
+    }
+    sum = (sum & 0x7FFF) + (sum >> 15);
+    sum = (sum & 0x7FFF);
+    return (sum);
+}
+
 FILE *
 read_lidar_pkt(FILE *file, lidar_pkt_t *pkt)
 {
     int data;
+    uint8_t *pkt_ptr;
 
     do {
         data = fgetc(file);
@@ -36,12 +60,12 @@ read_lidar_pkt(FILE *file, lidar_pkt_t *pkt)
     if (data == EOF)
         goto exit;
     
-    //
-    // Line up wit start so we can pick up the whole packet.
-    //
-    fseek(file, -1, SEEK_CUR);
+    pkt_ptr = (uint8_t *)pkt;
     
-    fread(pkt, sizeof(lidar_pkt_t), 1, file);
+    *pkt_ptr = (uint8_t)data;
+    pkt_ptr++;
+    
+    fread(pkt_ptr, (sizeof(lidar_pkt_t) - sizeof(uint8_t)), 1, file);
 
 exit:
     return (file);
@@ -51,17 +75,27 @@ void
 display_data(FILE *file)
 {
     lidar_pkt_t pkt;
+    uint16_t checksum;
+    int i;
     
     while (!feof(file)) {
         file = read_lidar_pkt(file, &pkt);
+        if (feof(file))
+            break;
         printf("start = 0x%02x index = 0x%02x ", pkt.start, pkt.index);
-        printf("speed = 0x%04x ", pkt.speed);
-        printf("invalid = 0x%01x ", pkt.distance.bits.invalid);
-        printf("strength = 0x%01x ", pkt.distance.bits.strength);
-        printf("distance = 0x%04x ", pkt.distance.bits.distance);
-        printf("signal = 0x%x ", pkt.signal);
-        printf("checksum = 0x%x\n", pkt.signal);
-
+        printf("speed = 0x%04x\n", pkt.speed);
+        for (i = 0; i < lidar_data_sz; i++) {
+            printf("data[%d]\n", i);
+            printf("invalid = 0x%01x ", pkt.data[i].distance.bits.invalid);
+            printf("strength = 0x%01x ", pkt.data[i].distance.bits.strength);
+            printf("distance = 0x%04x ", pkt.data[i].distance.bits.distance);
+            printf("signal = 0x%04x ", pkt.data[i].signal);
+        }
+        printf("checksum = 0x%04x ", pkt.checksum);
+        checksum = chk_sum((uint8_t *)&pkt, sizeof(pkt) - sizeof(pkt.checksum));
+        if (checksum != pkt.checksum)
+            printf("expected 0x%04x", checksum);
+        printf("\n");
     }
 }
 
