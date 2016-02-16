@@ -8,6 +8,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <getopt.h>
+#include <string.h>
 #include "lidar_data.h"
 
 /* Flag set by ‘--verbose’. */
@@ -21,6 +22,9 @@ static struct option long_options[] =
     /* These options don’t set a flag.
      We distinguish them by their indices. */
     {"file", required_argument, 0, 'f'},
+    {"device", required_argument, 0, 'd'},
+    {"motor", required_argument, 0, 'm'},
+
     {0, 0, 0, 0}
 };
 
@@ -72,30 +76,35 @@ exit:
 }
 
 void
-display_data(FILE *file)
+send_motor_cmd(FILE *out_file, int motor_state)
+{
+}
+
+void
+display_data(FILE *out_file, FILE *in_file)
 {
     lidar_pkt_t pkt;
     uint16_t checksum;
     int i;
     
-    while (!feof(file)) {
-        file = read_lidar_pkt(file, &pkt);
-        if (feof(file))
+    while (!feof(in_file)) {
+        in_file = read_lidar_pkt(in_file, &pkt);
+        if (feof(in_file))
             break;
-        printf("start = 0x%02x index = 0x%02x ", pkt.start, pkt.index);
-        printf("speed = 0x%04x\n", pkt.speed);
+        fprintf(out_file, "start = 0x%02x index = 0x%02x ", pkt.start, pkt.index);
+        fprintf(out_file,"speed = 0x%04x\n", pkt.speed);
         for (i = 0; i < lidar_data_sz; i++) {
-            printf("data[%d]\n", i);
-            printf("invalid = 0x%01x ", pkt.data[i].distance.bits.invalid);
-            printf("strength = 0x%01x ", pkt.data[i].distance.bits.strength);
-            printf("distance = 0x%04x ", pkt.data[i].distance.bits.distance);
-            printf("signal = 0x%04x ", pkt.data[i].signal);
+            fprintf(out_file, "data[%d]\n", i);
+            fprintf(out_file, "invalid = 0x%01x ", pkt.data[i].distance.bits.invalid);
+            fprintf(out_file, "strength = 0x%01x ", pkt.data[i].distance.bits.strength);
+            fprintf(out_file, "distance = 0x%04x ", pkt.data[i].distance.bits.distance);
+            fprintf(out_file, "signal = 0x%04x ", pkt.data[i].signal);
         }
-        printf("checksum = 0x%04x ", pkt.checksum);
+        fprintf(out_file, "checksum = 0x%04x ", pkt.checksum);
         checksum = chk_sum((uint8_t *)&pkt, sizeof(pkt) - sizeof(pkt.checksum));
         if (checksum != pkt.checksum)
-            printf("expected 0x%04x", checksum);
-        printf("\n");
+            fprintf(out_file, "expected 0x%04x", checksum);
+        fprintf(out_file, "\n");
     }
 }
 
@@ -104,24 +113,29 @@ main (int argc, char **argv)
 {
     int c;
     char *file_name;
+    char *dev_name;
     FILE *data_file;
+    FILE *dev_access;
+    char *open_attr;
+    int motor_state;
     
     file_name = NULL;
+    dev_name = NULL;
+    motor_state = -1;
     
     while (1) {
         /* getopt_long stores the option index here. */
         int option_index = 0;
         
-        c = getopt_long (argc, argv, "f:",
+        c = getopt_long (argc, argv, "f:m:",
                          long_options, &option_index);
         
         /* Detect the end of the options. */
         if (c == -1)
             break;
         
-        switch (c)
-        {
-            case 0:
+        switch (c) {
+        case 0:
                 /* If this option set a flag, do nothing else now. */
                 if (long_options[option_index].flag != 0)
                     break;
@@ -133,16 +147,31 @@ main (int argc, char **argv)
                 printf ("\n");
                 break;
                 
-            case 'f':
+        case 'f':
                 printf ("option -f with value `%s'\n", optarg);
                 file_name = optarg;
                 break;
                 
-            case '?':
-                /* getopt_long already printed an error message. */
+        case 'd':
+                printf ("option -d with value `%s'\n", optarg);
+                dev_name = optarg;
                 break;
                 
-            default:
+        case 'm':
+                printf ("option -m with value `%s'\n", optarg);
+                if (strncasecmp(optarg, MOTOR_ON, sizeof(MOTOR_ON)) == 0)
+                    motor_state = 1;
+                else if (strncasecmp(optarg, MOTOR_OFF, sizeof(MOTOR_OFF)) == 0)
+                    motor_state = 0;
+                else
+                    abort();
+                break;
+                
+        case '?':
+                /* getopt_long already printed an error message. */
+            break;
+                
+        default:
                 abort ();
         }
     }
@@ -162,15 +191,32 @@ main (int argc, char **argv)
         putchar ('\n');
     }
     
-    if (file_name == NULL)
+    if (dev_name) {
+        dev_access = fopen(dev_name, "rw");
+        if (dev_access == NULL) {
+            printf ("Unable to open device %s ", dev_name);
+            goto exit;
+        } else if (file_name == NULL)
+            data_file = stdout;
+        else
+            data_file = fopen(file_name, "w");
+    } else if (file_name) {
+        dev_access = fopen(file_name, "r");
+        data_file = stdout;
+    } else {
+        printf("Device path or File name are not optional\n");
         goto exit;
+    }
+  
+    if (motor_state != -1) {
+        if (dev_name) {
+            send_motor_cmd(dev_access, motor_state);
+        } else {
+            printf("Device path required it alter device motor state.\n");
+        }
+    }
     
-    data_file = fopen(file_name, "r");
-    
-    if (data_file == NULL)
-        goto exit;
-    
-    display_data(data_file);
+    display_data(data_file, dev_access);
     
 exit:
     exit (0);

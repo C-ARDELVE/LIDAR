@@ -14,6 +14,9 @@ enum {
     lidar_data_sz = 4
 };
 
+#define MOTOR_ON "on"
+#define MOTOR_OFF "off"
+
 #pragma pack(1)
 
 //
